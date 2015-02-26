@@ -7,18 +7,20 @@ class Rover
 
   def initialize(startPoint)
 
-    @right_turn = {
-      "N" => "E",
-      "S" => "W", 
-      "E" => "S", 
-      "W" => "N"
-    }
+    @turn = {
+      "R" => {
+        "N" => "E",
+        "S" => "W", 
+        "E" => "S", 
+        "W" => "N"
+      },
 
-    @left_turn = {
-      "N" => "W",
-      "S" => "E", 
-      "E" => "N", 
-      "W" => "S"
+      "L" => {
+        "N" => "W",
+        "S" => "E", 
+        "E" => "N", 
+        "W" => "S"
+      }
     }
 
     @result = {
@@ -42,13 +44,12 @@ class Rover
 
     # puts allMoves
     0.upto(allMoves.length) do |i|
-      if allMoves[i] == "M"
+      way = allMoves[i]
+      if way == "M"
          @x_position +=  @result[@heading][0]
          @y_position += @result[@heading][1]
-      elsif allMoves[i] == "R"
-        @heading = @right_turn[@heading]
-      elsif allMoves[i] == "L"
-        @heading = @left_turn[@heading]
+      elsif not way.nil?
+        @heading = @turn[way][@heading]
       end
     end
 
